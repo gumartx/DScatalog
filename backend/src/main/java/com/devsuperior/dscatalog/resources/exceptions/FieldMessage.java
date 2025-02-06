@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class FieldMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String fieldMessage;
 	private String fieldName;
+	private String fieldMessage;
 	
 	public FieldMessage() {
 	}
 
-	public FieldMessage(String fieldMessage, String fieldName) {
+	public FieldMessage(String fieldName, String fieldMessage) {
 		this.fieldMessage = fieldMessage;
 		this.fieldName = fieldName;
 	}
