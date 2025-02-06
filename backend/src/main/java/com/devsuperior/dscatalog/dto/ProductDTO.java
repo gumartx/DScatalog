@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.entities.Product;
 
@@ -13,14 +19,19 @@ public class ProductDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@Size(min = 3, max = 20, message = "Deve conter entre 3 e 20 caracteres")
+	@NotBlank(message = "Campo requirido")
 	private String name;
 	private String description;
+	@Positive(message = "Preço deve ser maior que 0")
 	private Double price;
 	private String imgUrl;
+	@PastOrPresent(message = "Data não deve ser futura")
 	private Instant date;
-	
+
+	@NotEmpty(message = "Campo requirido")
 	private List<CategoryDTO> categories = new ArrayList<>();
-	
+
 	public ProductDTO() {
 	}
 
@@ -32,7 +43,7 @@ public class ProductDTO implements Serializable {
 		this.imgUrl = imgUrl;
 		this.date = date;
 	}
-	
+
 	public ProductDTO(Product entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
@@ -41,7 +52,7 @@ public class ProductDTO implements Serializable {
 		this.imgUrl = entity.getImgUrl();
 		this.date = entity.getDate();
 	}
-	
+
 	public ProductDTO(Product entity, Set<Category> categories) {
 		this(entity);
 		categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));

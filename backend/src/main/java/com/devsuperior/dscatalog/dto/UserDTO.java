@@ -4,21 +4,32 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import com.devsuperior.dscatalog.entities.User;
 
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
+	@Size(min = 3, max = 20, message = "Deve conter entre 3 e 20 caracteres")
+	@NotBlank(message = "Campo requirido")
 	private String firstName;
+	@Size(min = 3, max = 20, message = "Deve conter entre 3 e 20 caracteres")
+	@NotBlank(message = "Campo requirido")
 	private String lastName;
+	@Email(message = "Email inválido")
 	private String email;
-	
+
+	@NotEmpty(message = "Campo requirido")
 	private Set<RoleDTO> roles = new HashSet<>();
-	
+
 	public UserDTO() {
 	}
-	
+
 	public UserDTO(User entity) {
 		id = entity.getId();
 		firstName = entity.getFirstName();
@@ -62,5 +73,5 @@ public class UserDTO implements Serializable {
 	public Set<RoleDTO> getRoles() {
 		return roles;
 	}
-	
+
 }
